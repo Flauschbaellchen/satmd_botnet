@@ -1,0 +1,50 @@
+# settings.tcl
+
+## GLOBAL ##
+#
+# Default bantime for gban (in seconds, default is 14 days)
+set satmd_botnet(defaultbantime) [expr 14 * 24 * 60]
+#
+# Modules to load (list)
+set satmd_botnet(modules) "gban maxpatch update"
+#
+# What is a bot alike? userflags
+set satmd_botnet(flag) "NZb"
+
+## db_access
+#
+#
+set satmd_botnet(db,database) ""
+set satmd_botnet(db,host) ""
+set satmd_botnet(db,user) ""
+set satmd_botnet(db,password) ""
+
+# MODULE autoinactive
+set satmd_botnet(autoinactive,delay) "1"
+
+## MODULE gbanlist_update ##
+#
+# Where to send +b matches (botnick or empty)
+set satmd_botnet(gbanlist_updater,target) "chii-chan"
+
+## MODULE nickserv ## 
+# (Warning: this module can lead to information leak if there is no NickServ on the used irc network!)
+#
+# Which nicks zu identify for?
+set satmd_botnet(nickserv,password,*yournickhere*) "*password*"
+
+## MODULE timed_announce
+#
+set satmd_botnet(timed_announce,donotidle) "Please do not idle in this channel!"
+
+# MODULE customtriggers
+set satmd_botnet(customtrigger,trigger,!help_) {
+	{ PRIVMSG $channel :\001ACTION hilft $nick\001 }
+	{ PRIVMSG $channel :noe, keine lust heut ;D }
+	{ PRIVMSG $channel :parameter 1 == $parameter1 }
+}
+
+
+# Successful
+set satmd_botnet(version,settings) "0.1"
+return 1
