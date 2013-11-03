@@ -13,7 +13,7 @@ proc satmd_botnet_autoinactive {nick uhost hand chan victim reason} {
 		putloglev d $chan "botnet.tcl:satmd_botnet:autoinactive $nick!$uhost on $chan reason: $reason"
 		catch { satmd_botnet_report $satmd_botnet(report,target) "satmd_botnet:autoinactive $nick!$uhost on $chan reason: $reason" }
 		channel set $chan +inactive
-		if { [info exist satmd_botnet(autoinactive,delay)] } {
+		if { [info exists satmd_botnet(autoinactive,delay)] } {
 			after [expr $satmd_botnet(autoinactive,delay) * 60000] [list { channel set $chan -inactive ; putserv "JOIN $chan" }]
 		}
 	}

@@ -48,7 +48,7 @@ proc satmd_botnet_limiter_check { id } {
 
 proc satmd_botnet_limiter_decrease { id } {
 	global satmd_botnet
-	if { ![info exist satmd_botnet(limiter,counters,$id)] } { return 0 }
+	if { ![info exists satmd_botnet(limiter,counters,$id)] } { return 0 }
 	if { $satmd_botnet(limiter,counters,$id) > 0 } {
 		set satmd_botnet(limiter,counters,$id) [expr $satmd_botnet(limiter,counters,$id) - 1]
 	} else {
@@ -58,7 +58,7 @@ proc satmd_botnet_limiter_decrease { id } {
 
 proc satmd_botnet_limiter_unlock { id } {
 	global satmd_botnet
-	if { [info exist satmd_botnet(limiter,locked,$id) ] } {
+	if { [info exists satmd_botnet(limiter,locked,$id) ] } {
 		unset satmd_botnet(limiter,locked,$id)
 	}
 }

@@ -173,7 +173,7 @@ proc satmd_botnet_include { includedef } {
 		}
 		return 0
 	} else {
-		if { [info exist satmd_botnet(version,$includedef)] } {
+		if { [info exists satmd_botnet(version,$includedef)] } {
 			putloglev "d" "*" "satmd_botnet: module $includedef ($satmd_botnet(version,$includedef))"
 		} else {
 			putloglev "d" "*" "satmd_botnet: module $includedef"
@@ -184,7 +184,7 @@ proc satmd_botnet_include { includedef } {
 
 proc satmd_botnet_require { includedef } {
 	global satmd_botnet
-	if { ![info exist satmd_botnet(version,$includedef)] } {
+	if { ![info exists satmd_botnet(version,$includedef)] } {
 		putloglev "db" "*" "satmd_botnet: INFO: module $includedef required, but not yet loaded - automatically loading now"
 		satmd_botnet_include "$includedef"
 	}

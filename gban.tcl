@@ -265,7 +265,7 @@ proc satmd_botnet_issecureban { issuertype issuer banmask { channel ""}} {
 					lappend local_hostlist $umask
 				}
 			}
-			if { [info exist satmd_botnet(gban,safe_threshold,local,$c)] } {
+			if { [info exists satmd_botnet(gban,safe_threshold,local,$c)] } {
 				if { [llength $local_hostlist] > $satmd_botnet(gban,safe_threshold,local,$c) } {
 					lappend errormsg "Banmask $banmask is unsafe for $c ([llength $local_hostlist] hit) (max: $satmd_botnet(gban,safe_threshold,local,$c)) -- using channel specific value"
 				}

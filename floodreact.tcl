@@ -11,7 +11,7 @@ proc satmd_botnet_floodreact_request { nick uhost handle channel text } {
 	if { $text != "" } { return 0 } 
 	global satmd_botnet
 	if { ![channel get $channel "satmd_botnet_floodreact"] } { return 0}
-	if { ![info exist satmd_botnet(floodreact,active,$channel)] } {
+	if { ![info exists satmd_botnet(floodreact,active,$channel)] } {
 		set satmd_botnet(floodreact,active,$channel) 1
 		after 600000 [list unset satmd_botnet(floodreact,active,$channel)]
 		set usermask "$nick!$uhost/$handle"
@@ -47,7 +47,7 @@ proc satmd_botnet_floodreact_secured { nick uhost handle channel text } {
 	set usermask "$nick/$handle"
 	satmd_botnet_report $satmd_botnet(report,target) "satmd_botnet:flood: Die Flood-Meldung fuer $channel wurde von $usermask geloescht."
 	satmd_botnet_floodreact_deactivate "$channel"
-	if { [info exist satmd_botnet(floodreact,active,$channel)] } {
+	if { [info exists satmd_botnet(floodreact,active,$channel)] } {
 		unset satmd_botnet(floodreact,active,$channel)
 	}
 }

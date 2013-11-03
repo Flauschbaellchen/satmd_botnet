@@ -2,7 +2,7 @@
 
 # This is the NEW update.tcl, using SVN
 
-if { ![info exist satmd_botnet(update_client)]} { set satmd_botnet(update_client) 0 }
+if { ![info exists satmd_botnet(update_client)]} { set satmd_botnet(update_client) 0 }
 
 bind bot -  "satmd_botnet_update" satmd_botnet_update_bot
 bind dcc tn "satmd_botnet_update" satmd_botnet_update_dcc
