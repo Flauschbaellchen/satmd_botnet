@@ -87,7 +87,7 @@ proc satmd_botnet_prefixaq_partsign { nick uhost handle channel dummy} {
 	global satmd_botnet
 	regsub {^[*~&@%+]} $nick {} nick
 	if { [info exists satmd_botnet(prefixaq,$channel,$nick)] } {
-		unset $satmd_botnet(prefixaq,$channel,$nick)
+		unset satmd_botnet(prefixaq,$channel,$nick)
 	}
 }
 
