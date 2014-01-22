@@ -12,27 +12,31 @@ set opchars "@!*&~"
 
 bind raw - "353" satmd_botnet_prefixaq_parse353
 proc satmd_botnet_prefixaq_parse353 { from keyword text } {
-	global satmd_botnet
-	set channel [lindex $text 2]
-	set names [join [string replace [lrange $text 3 end] 0 0]]
-	foreach names_t $names {
-		set modechar [string range $names_t 0 0]
-		if {   $modechar == "!"
-			|| $modechar == "*"
-			|| $modechar == "~"
-			|| $modechar == "&"
-			|| $modechar == "@"
-			|| $modechar == "%"
-			|| $modechar == "+"
-		} {
-			set target [string range $names_t 1 end]
-		} else {
-			set target $names_t
-			set modechar ""
+	catch {
+		global satmd_botnet
+		set channel [lindex $text 2]
+		set names [join [string replace [lrange $text 3 end] 0 0]]
+		catch {
+			foreach names_t $names {
+				set modechar [string range $names_t 0 0]
+				if {   $modechar == "!"
+					|| $modechar == "*"
+					|| $modechar == "~"
+					|| $modechar == "&"
+					|| $modechar == "@"
+					|| $modechar == "%"
+					|| $modechar == "+"
+				} {
+					set target [string range $names_t 1 end]
+				} else {
+					set target $names_t
+					set modechar ""
+				}
+				if { $modechar == "!" } { set modechar "&" }
+				if { $modechar == "*" } { set modechar "~" }
+				set satmd_botnet(prefixaq,$channel,$target) "$modechar"
+			}
 		}
-		if { $modechar == "!" } { set modechar "&" }
-		if { $modechar == "*" } { set modechar "~" }
-		set satmd_botnet(prefixaq,$channel,$target) "$modechar"
 	}
 	return 0
 }
@@ -139,15 +143,17 @@ proc isfounder { channel nick } {
 
 bind raw -|- "MODE" satmd_botnet_prefixaq_modeRAW
 proc satmd_botnet_prefixaq_modeRAW { from keyword text} {
-	set text [split $text]
-	set nick [lindex $text 2]
-	set mode [lindex $text 1]
-	set channel [lindex $text 0]
-	regsub {^[*~&@%+]} $nick {} nick
-	satmd_botnet_prefixaq_mode "" "" "" $channel $mode $nick
+	catch {
+		set text [split $text]
+		set nick [lindex $text 2]
+		set mode [lindex $text 1]
+		set channel [lindex $text 0]
+		regsub {^[*~&@%+]} $nick {} nick
+		satmd_botnet_prefixaq_mode "" "" "" $channel $mode $nick
+	}
 	return 0
 }
 
-set satmd_botnet(version,prefixaq) "0.1"
+set satmd_botnet(version,prefixaq) "0.2"
 
 return 1
