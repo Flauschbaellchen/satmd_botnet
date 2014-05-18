@@ -10,7 +10,7 @@ bind time - "* * * * *" satmd_botnet_euirc_resync_time
 
 proc satmd_botnet_euirc_resync_time { a b c d e } {
 	global botnick
-	foreach c in [chanlist] {
+	foreach c in [channels] {
 		set chanjoin -1
 		set needresync 0
 		catch {
