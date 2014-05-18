@@ -17,7 +17,7 @@ set satmd_botnet(flag) "Nb"
 ## MODULE UPDATE ##
 #
 # update command
-set satmd_botnet(update,command) "svn up"
+set satmd_botnet(update,command) "git pull --rebase"
 
 ## db_access
 #
